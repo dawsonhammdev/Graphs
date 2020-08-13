@@ -1,37 +1,7 @@
-# from graph import Graph
 """
 Simple graph implementation
 """
-# from util import Stack, Queue  # These may come in handy
-
-# Note: This Queue class is sub-optimal. Why?
-class Queue():
-    def __init__(self):
-        self.queue = []
-    def enqueue(self, value):
-        self.queue.append(value)
-    def dequeue(self):
-        if self.size() > 0:
-            return self.queue.pop(0)
-        else:
-            return None
-    def size(self):
-        return len(self.queue)
-
-class Stack():
-    def __init__(self):
-        self.stack = []
-    def push(self, value):
-        self.stack.append(value)
-    def pop(self):
-        if self.size() > 0:
-            return self.stack.pop()
-        else:
-            return None
-    def size(self):
-        return len(self.stack)
-
-
+from util import Stack, Queue  # These may come in handy
 
 class Graph:
 
@@ -348,41 +318,3 @@ if __name__ == '__main__':
     '''
     print(graph.dfs(1, 6))
     print(graph.dfs_recursive(1, 6))
-
-
-def earliest_ancestor(ancestors, starting_node):
-    # we need to use a BFT to traverse through the family tree and 
-    # find the 'oldest' node in the tree with paths to the starting node.
-    # the oldest node will be where there are no parents.
-    # if there are two parents then take the lowest value assigned.
-
-    # create a graph object:
-    g = Graph()
-
-    # use a for loop to create the vertex's and edges
-    # for loop throught the list
-    for (parent, child) in ancestors:
-        g.add_vertex(parent)
-        g.add_vertex(child)
-    
-    for (parent, child) in ancestors:
-        g.add_edge(parent, child)
-
-    new_path = []
-
-    for (parent, child) in ancestors:
-        path = g.dfs(parent, starting_node)
-        if path is not None and len(path) > len(new_path):
-           new_path = path.copy()
-
-    if len(new_path) <= 1:
-        return -1
-
-    return new_path[0]
-
-    
-    
-
-
-
-    
