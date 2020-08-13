@@ -5,8 +5,54 @@ from world import World
 import random
 from ast import literal_eval
 
-# Load world
-world = World()
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
+# Translate into graphs languege:
+    # nodes: rooms
+    # edges: n,s,e,w
+
+# Build graph, or define getNeighbors()
+
+# Choose your algorithm. (BFS)
+
+
+
+# write algorithm to traverse through the map:
+# `player.current_room.id`, `player.current_room.get_exits()` and `player.travel(direction)`
+
+# picks a random unexplored direction from the player's current room
+
+# travels and logs that direction
+
+# then loops
+
+# if we run into a dead-end (i.e. a room with no unexplored paths), walk back to the nearest room that does contain an unexplored path
+
+def victory():
+    # Load world
+    world = World()
+    q = Queue()
+    visited = set()
+    movements = []
+    # get the possible exits for the room
+    # chooses n,s,e,w randomly based on the exits avaliable.
+    for exits in player.current_room.get_exits():
+        direction = player.travel(random.choice(exits))
+        movements.append(direction)
+
+    traversal_path.append(movements)
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
@@ -48,9 +94,9 @@ else:
 
 
 
-#######
+# ######
 # UNCOMMENT TO WALK AROUND
-#######
+# ######
 player.current_room.print_room_description(player)
 while True:
     cmds = input("-> ").lower().split(" ")
