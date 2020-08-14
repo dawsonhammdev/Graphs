@@ -6,18 +6,18 @@ import random
 from ast import literal_eval
 
 
-class Queue():
+class Stack():
     def __init__(self):
-        self.queue = []
-    def enqueue(self, value):
-        self.queue.append(value)
-    def dequeue(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
         if self.size() > 0:
-            return self.queue.pop(0)
+            return self.stack.pop()
         else:
             return None
     def size(self):
-        return len(self.queue)
+        return len(self.stack)
 
 # Translate into graphs languege:
     # nodes: rooms
@@ -40,27 +40,42 @@ class Queue():
 
 # if we run into a dead-end (i.e. a room with no unexplored paths), walk back to the nearest room that does contain an unexplored path
 
+
+
+
 def victory():
-    # Load world
     world = World()
-    q = Queue()
+    s = Stack()
     visited = set()
     movements = []
-    # get the possible exits for the room
-    # chooses n,s,e,w randomly based on the exits avaliable.
-    for exits in player.current_room.get_exits():
-        direction = player.travel(random.choice(exits))
-        movements.append(direction)
+    def new_move():
+        # this function will return the direction that is available in a room.
+        for exits in player.current_room.get_exits():
+            direction_taken = player.travel(random.choice(exits))
+            movements.append(direction_taken)
 
-    traversal_path.append(movements)
+            visited.add(player.current_room.id)
+
+
+    def new_room():
+        # while loop that goes through and checks the visited rooms and poping from the stack.
+        while visited is not None:
+            path = s.pop()
+    
+    # a while loop that goes until it finds 500 rooms
+    while len(visited) < len(world.rooms):
+        new_move()
+        new_room()
+
+    
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
-# map_file = "maps/test_line.txt"
+map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-map_file = "maps/main_maze.txt"
+# map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
