@@ -213,7 +213,7 @@ class Graph:
                 # APPEND THE NEIGHBOR TO THE BACK
                 new_path.append(neighbor)
                 s.push(new_path)
-        print(path)
+        # print(path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
